@@ -4,7 +4,7 @@ import {
 	Input,
 	OnChanges
 } from '@angular/core';
-import { DecoratedByExtendToTemplate, ExtendToTemplate } from 'index';
+import { DecoratedByExtendToTemplate, ExtendToTemplate } from 'extend-to-template';
 
 @Component({
 	selector: 'user-badge',
@@ -12,8 +12,7 @@ import { DecoratedByExtendToTemplate, ExtendToTemplate } from 'index';
 	styleUrls: ['./user-badge.component.scss'],
 })
 export class UserBadgeComponent
-	extends DecoratedByExtendToTemplate<UserBadgeComponent>
-	implements OnChanges {
+	extends DecoratedByExtendToTemplate<UserBadgeComponent> {
 
     @ExtendToTemplate()
     @Input() public name: string = '';

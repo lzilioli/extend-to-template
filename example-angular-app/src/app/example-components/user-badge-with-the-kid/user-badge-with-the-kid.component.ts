@@ -1,6 +1,5 @@
 import {
 	Component,
-
 	OnChanges
 } from '@angular/core';
 import { UserBadgeComponent } from '../user-badge/user-badge.component';

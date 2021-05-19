@@ -1,10 +1,9 @@
 
 import {
 	Component,
-	Input,
+
 	OnChanges
 } from '@angular/core';
-import { DecoratedByExtendToTemplate, ExtendToTemplate } from 'index';
 import { UserBadgeComponent } from '../user-badge/user-badge.component';
 
 @Component({
