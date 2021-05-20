@@ -1,4 +1,6 @@
-=There are multiple posts peppered around the internet where people are asking for better support for component inheritance in Angular.
+# Angular - Inheriting Component Implementations AND Their Templates
+
+There are multiple posts peppered around the internet where people are asking for better support for component inheritance in Angular.
 
 - [Is it possible to extend a Template in Angular 2?](https://stackoverflow.com/questions/45464891/is-it-possible-to-extend-a-template-in-angular-2)
 - [Template inheritance with ng-content or similar](https://github.com/angular/angular/issues/13757)
@@ -11,13 +13,13 @@ There is an [open proposal](https://github.com/angular/angular/issues/13766) for
 
 Component composition (where you wrap one component template by making a completely new component) is not better than component inheritance for two reasons:
 
-1. Syncing state of components via `@Inputs` and `@Outputs` makes it easy to swallow APIs and leave derivitive implementations in the dust.
-2. It forces us to implement all variance in behavior of our base component by way of @Inputs and @Outputs, rather than leveraging the overriding power afforded by class interitance.
+1. Syncing state of components via `@Inputs()` and `@Outputs()` makes it easy to swallow APIs and leave derivitive implementations in the dust.
+2. It forces us to implement all variance in behavior of our base component by way of @Inputs and `@Outputs()`, rather than leveraging the overriding power afforded by class interitance.
 
 In angular, we have strict class inheritance by way of TypeScript, but we do not have many good choices if the template of our derivitive component needs to diverge in any way from the template
 of the base component it extends.
 
-The rest of this README talks through the problem, as well as one proposed solution. The proposed solution is already codified within this repository, in [index.ts](./index.ts). There is also an example app [code](https://github.com/lzilioli/extend-to-template) [live preview](https://lzilioli.github.io/extend-to-template/) that illustrates how to leverage this proposed solution in your own components
+The rest of this README talks through the problem, as well as one proposed solution. The proposed solution is already codified within this repository, in [index.ts](./index.ts). There is also an example app ([code](https://github.com/lzilioli/extend-to-template)) ([live preview](https://lzilioli.github.io/extend-to-template/)) that illustrates how to leverage this proposed solution in your own components
 
 # Problem Deep Dive
 
@@ -150,7 +152,7 @@ We could improve this situation by extending the `BaseComponent` class:
 export class DerivedComponent extends BaseComponent {}
 ```
 
-This looks great! But as the API of `BaseComponent` grows to include additional `@Inputs` and `@Outputs`, we will need to update the template for all implementations of `DerivedCompnent` which `extends BaseComponent` and re-uses the html element in this way. It is easy to imagine this tech debt piling up and your individual implementations of `DerivedComponent`'s API diverging from the `BaseComponent` which they are intended to implement. This is confusing for future developers who are trying to consume your `DerivedComponent` and expect anything that looks like a `BaseComponent` to support the expected `@Inputs()` and `@Outputs()`.
+This looks great! But as the API of `BaseComponent` grows to include additional `@Inputs()` and `@Outputs()`, we will need to update the template for all implementations of `DerivedCompnent` which `extends BaseComponent` and re-uses the html element in this way. It is easy to imagine this tech debt piling up and your individual implementations of `DerivedComponent`'s API diverging from the `BaseComponent` which they are intended to implement. This is confusing for future developers who are trying to consume your `DerivedComponent` and expect anything that looks like a `BaseComponent` to support the expected `@Inputs()` and `@Outputs()`.
 
 Also, if you were to override a method from `BaseComponent` in `DerivedComponent` in the above example, you might be surprised to see that your component on the page does not honor the overridden
 logic that you implemented in `DerivedComponent`. This is super frustrating!
@@ -341,7 +343,7 @@ The primary downside to this approach is that it is limiting to force all varian
 a components behavior through a single config object. Many people who are in search of inheritance in
 their components are seeking the benefits brought on by being able to override a single
 public or protected method implementation in their specialized case. Also, this approach
-doesn't solve for synchronizing `@Outputs` from descendant to parent, so you still run
+doesn't solve for synchronizing `@Outputs()` from descendant to parent, so you still run
 the risk of your component dom APIs diverging from the implementation of the
 `BaseComponent` that you wrap.
 
