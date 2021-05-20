@@ -7,7 +7,7 @@ MIT
 @angular/platform-browser
 MIT
 
-angular-extends-template
+angular-extend-to-template
 ISC
 
 rxjs
