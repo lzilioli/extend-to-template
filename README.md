@@ -197,7 +197,7 @@ and extend those properties into itself.
     <button (click)="handleButtonClick()>{{buttonText}}</button>
   `
 })
-export class BaseComponent extends DecoratedByExtendToTemplate implements OnChanges {
+export class BaseComponent extends DecoratedByExtendToTemplateComponent implements OnChanges {
   @Input() buttonText = 'Click Me';
 
   @Output() buttonClicked = new EventEmitter();
@@ -280,7 +280,7 @@ There are two remaining pain points:
 
 `ExtendToTemplate()` - Class property decorator that indicates a property should be included in the descendant call
 
-`DecoratedByExtendToTemplate` - Base class which your `BaseComponent` should extend. This base class brings with it all of the functionality required to leverage the decorations added by `ExtendToTemplate`
+`DecoratedByExtendToTemplateComponent` - Base class which your `BaseComponent` should extend. This base class brings with it all of the functionality required to leverage the decorations added by `ExtendToTemplate`
 
 Lets revisit the above example, this time with the `ExtendToTemplate` decorator:
 
@@ -291,7 +291,7 @@ Lets revisit the above example, this time with the `ExtendToTemplate` decorator:
     <button (click)="handleButtonClick()>{{buttonText}}</button>
   `
 })
-export class BaseComponent extends DecoratedByExtendToTemplate implements OnChanges, OnDestroy {
+export class BaseComponent extends DecoratedByExtendToTemplateComponent implements OnChanges, OnDestroy {
   @ExtendToTemplate()
   @Input() buttonText = 'Click Me';
 
@@ -311,14 +311,14 @@ export class BaseComponent extends DecoratedByExtendToTemplate implements OnChan
 	public ngOnChanges(_changes: SimpleChanges): void {
     // be sure and call super.ngOnChanges() if you
 		// override ngOnChanges when extending
-		// DecoratedByExtendToTemplate
+		// DecoratedByExtendToTemplateComponent
 	  super.ngOnChanges(_changes);
 	}
 
 	public ngOnDestroy(): void {
     // be sure and call super.ngOnDestroy() if you
 		// override ngOnDestroy when extending
-		// DecoratedByExtendToTemplate
+		// DecoratedByExtendToTemplateComponent
 	  super.ngOnDestroy();
 	}
 }

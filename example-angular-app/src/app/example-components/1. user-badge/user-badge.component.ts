@@ -8,7 +8,7 @@ import {
 	Output,
 	SimpleChanges
 } from '@angular/core';
-import { DecoratedByExtendToTemplate, ExtendToTemplate } from 'extend-to-template';
+import { DecoratedByExtendToTemplateComponent, ExtendToTemplate } from 'extend-to-template';
 
 interface User {
 	name: string;
@@ -22,7 +22,7 @@ interface User {
 	styleUrls: ['./user-badge.component.scss'],
 })
 export class UserBadgeComponent
-	extends DecoratedByExtendToTemplate<UserBadgeComponent>
+	extends DecoratedByExtendToTemplateComponent<UserBadgeComponent>
 	implements OnChanges, OnDestroy, User {
 
     @ExtendToTemplate()
@@ -51,14 +51,14 @@ export class UserBadgeComponent
 	public ngOnChanges(_changes: SimpleChanges): void {
         // be sure and call super.ngOnChanges() if you
 		// override ngOnChanges when extending
-		// DecoratedByExtendToTemplate
+		// DecoratedByExtendToTemplateComponent
 	    super.ngOnChanges(_changes);
 	}
 
 	public ngOnDestroy(): void {
         // be sure and call super.ngOnDestroy() if you
 		// override ngOnDestroy when extending
-		// DecoratedByExtendToTemplate
+		// DecoratedByExtendToTemplateComponent
 	    super.ngOnDestroy();
 	}
 }

@@ -70,14 +70,14 @@ import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from "@angular/
  *
  * When one component that extends another needs to create its
  * own, internal instance of that component by way of wrapping
- * its template, the base component can extend DecoratedByExtendToTemplate
+ * its template, the base component can extend DecoratedByExtendToTemplateComponent
  * and decorate properties that need to be synced between instances
  * with ExtendToTemplate(). From there, the decorator/base class
  * will  provide the _extendToTemplateBridge as a quick way to
  * pass all component inputs outputs, and member functions down
  * to your child instance.
  * To use:
- *    MyComponent extends DecoratedByExtendToTemplate { ... }
+ *    MyComponent extends DecoratedByExtendToTemplateComponent { ... }
  *    MyComponent2 extends MyComponent { ... }
  * And then in your template for my-component-2:
  *    <my-component
@@ -90,8 +90,8 @@ import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from "@angular/
  * Possible Future enhancements:
  * 	 - namespace support for extending subsets of a component API to different
  */
-export function ExtendToTemplate(): (target: DecoratedByExtendToTemplate<any>, propertyKey: string) => any {
-	return (target: DecoratedByExtendToTemplate<any>, propertyKey: string): any => {
+export function ExtendToTemplate(): (target: DecoratedByExtendToTemplateComponent<any>, propertyKey: string) => any {
+	return (target: DecoratedByExtendToTemplateComponent<any>, propertyKey: string): any => {
 		if (!target['_extendToTemplateProps']) {
 			target['_extendToTemplateProps'] = [];
 		}
@@ -102,7 +102,7 @@ export function ExtendToTemplate(): (target: DecoratedByExtendToTemplate<any>, p
 @Component({
 	template: ''
 })
-export class DecoratedByExtendToTemplate<T> implements OnChanges, OnDestroy {
+export class DecoratedByExtendToTemplateComponent<T> implements OnChanges, OnDestroy {
 	/**
 	 * Automatically managed by the ExtendToTemplate decorator. This array
 	 * lists the key associated with all properties on the Class instance
@@ -170,7 +170,7 @@ export class DecoratedByExtendToTemplate<T> implements OnChanges, OnDestroy {
 			// @ts-ignore
 			if (typeof config[key]?.subscribe === 'function' && typeof config[key]?.next === 'function') {
 				// @ts-ignore
-				let sub = this[key].subscribe((...args: never[]): void => {
+				const sub = this[key].subscribe((...args: never[]): void => {
 					// @ts-ignore
 					config[key].next(...args);
 				});
