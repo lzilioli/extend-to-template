@@ -11,7 +11,7 @@ There is an [open proposal](https://github.com/angular/angular/issues/13766) for
 
 # Problem Statement
 
-I strongly you read the entirety of [the ng-descendant proposal](https://github.com/angular/angular/issues/13766) because it contextualizes the problem well. 
+I strongly you read the entirety of [the ng-descendant proposal](https://github.com/angular/angular/issues/13766) because it contextualizes the problem well.
 
 Component composition (where you wrap one component template by making a completely new component) is not better than component inheritance for two reasons:
 
@@ -209,7 +209,11 @@ export class BaseComponent extends DecoratedByExtendToTemplate implements OnChan
   @Input()
 	public set _extendToTemplateBridge(config: Partial<T>) {
 		Object.keys(config).forEach((key: string): void => {
-			if (typeof config[key]?.subscribe === 'function' && typeof config[key]?.next === 'function') {
+			// Handle @Output-like objects by subscribing to our inner event
+      // (which we trust our component code to invoke when appropriate)
+      // by subscribing to them and passing them directly to the emitter
+      // by the same name in our descendant.
+      if (typeof config[key]?.subscribe === 'function' && typeof config[key]?.next === 'function') {
 				this[key].subscribe((...args: never[]): void => {
 					config[key].next(...args);
 				});
