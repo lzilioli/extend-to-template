@@ -2,7 +2,7 @@ import {
 	Component,
 	OnChanges
 } from '@angular/core';
-import { UserBadgeComponent } from '../user-badge/user-badge.component';
+import { UserBadgeComponent } from '../1. user-badge/user-badge.component';
 
 /**
  * @extends UserBadgeComponent
@@ -11,10 +11,10 @@ import { UserBadgeComponent } from '../user-badge/user-badge.component';
 @Component({
 	selector: 'user-badge-with-the-kid',
 	styleUrls: [
-		'../user-badge/user-badge.component.scss',
+		'../1. user-badge/user-badge.component.scss',
 		'./user-badge-with-the-kid.component.scss'
 	],
-	templateUrl: '../user-badge/user-badge.component.html',
+	templateUrl: '../1. user-badge/user-badge.component.html',
 })
 export class UserBadgeWithTheKidComponent extends UserBadgeComponent implements OnChanges {
 	/**

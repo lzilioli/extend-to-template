@@ -3,12 +3,12 @@ import {
 	Component,
 	OnChanges
 } from '@angular/core';
-import { UserBadgeComponent } from '../user-badge/user-badge.component';
+import { UserBadgeComponent } from '../1. user-badge/user-badge.component';
 
 @Component({
 	selector: 'user-badge-with-panel',
 	styleUrls: [
-		'../user-badge/user-badge.component.scss',
+		'../1. user-badge/user-badge.component.scss',
 		'./user-badge-with-panel.component.scss'
 	],
 	template: `
