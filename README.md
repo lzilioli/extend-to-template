@@ -41,7 +41,9 @@ This option is recommended when you need to introduce functional or stylistic va
 export class DerivedComponent extends BaseComponent {}
 ```
 
-In this case, the `DerivedComponent` inherits all of the `@Inputs()`, `@Outputs()`, and behaviors of the `BaseComponent` that it extends. Note, the `templateUrl` points to the template for `base-component.html`, `derived-component` doesn't have its own template definition.
+In this case, the `DerivedComponent` inherits all of the `@Inputs()`, `@Outputs()`, and behaviors of the `BaseComponent` that it extends.
+
+Note, the `templateUrl` points to the template for `base-component.html`, `derived-component` doesn't have its own template definition. If we require variance in our template, we must proceed to Option 2:
 
 ## Option 2 - Wrap the Base Component
 
