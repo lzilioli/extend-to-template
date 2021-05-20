@@ -6,7 +6,7 @@ import { UserBadgeComponent } from '../1. user-badge/user-badge.component';
 
 /**
  * @extends UserBadgeComponent
- * @overrides deriveUserName()
+ * @overrides deriveUserName() to prepend "The Kid" to the name when displaying it in the user-panel.
  */
 @Component({
 	selector: 'user-badge-with-the-kid',
