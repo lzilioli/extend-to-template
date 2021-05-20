@@ -10,8 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "@angular/core": "^12.0.1",
-    "@types/lodash.assign": "^4.2.6",
-    "lodash.assign": "^4.2.0",
     "rxjs": "^7.0.1"
   }
 }

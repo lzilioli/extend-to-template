@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,4 +6,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  public logResults(...args: unknown[]): void {
+    console.log('one of the buttons was clicked', ...args);
+  }
 }

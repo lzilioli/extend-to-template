@@ -2,20 +2,26 @@
   name="Luke"
   description="A developer"
   [badges]="['coder', 'javascript']"
->
-
-</user-badge>
+  (buttonClicked)="logResults($event)"
+></user-badge>
 
 <user-badge-with-panel
   name="Mike"
   description="A developer"
   [badges]="['coder', 'typescript']"
->
-</user-badge-with-panel>
+  (buttonClicked)="logResults($event)"
+></user-badge-with-panel>
 
 <user-badge-with-the-kid
   name="Adrian"
   description="A cofounder"
   [badges]="['better-than-us-all']"
->
-</user-badge-with-the-kid>
+  (buttonClicked)="logResults($event)"
+></user-badge-with-the-kid>
+
+<user-badge-with-the-kid-and-panel
+  name="Adrian"
+  description="A cofounder"
+  [badges]="['better-than-us-all']"
+  (buttonClicked)="logResults($event)"
+></user-badge-with-the-kid-and-panel>

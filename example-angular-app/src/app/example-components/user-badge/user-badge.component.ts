@@ -1,11 +1,20 @@
 
 import {
 	Component,
+	EventEmitter,
 	Input,
 	OnChanges,
+	OnDestroy,
+	Output,
 	SimpleChanges
 } from '@angular/core';
 import { DecoratedByExtendToTemplate, ExtendToTemplate } from 'extend-to-template';
+
+interface User {
+	name: string;
+	description: string;
+	badges: string[];
+}
 
 @Component({
 	selector: 'user-badge',
@@ -14,7 +23,7 @@ import { DecoratedByExtendToTemplate, ExtendToTemplate } from 'extend-to-templat
 })
 export class UserBadgeComponent
 	extends DecoratedByExtendToTemplate<UserBadgeComponent>
-	implements OnChanges {
+	implements OnChanges, OnDestroy, User {
 
     @ExtendToTemplate()
     @Input() public name: string = '';
@@ -23,8 +32,15 @@ export class UserBadgeComponent
     @ExtendToTemplate()
     @Input() public badges: string[] = [];
 
-	constructor() {
-		super();
+	@ExtendToTemplate()
+	@Output() public buttonClicked: EventEmitter<User> = new EventEmitter<User>();
+
+	public handleButtonClick(): void {
+		this.buttonClicked.next({
+			name: this.name,
+			description: this.description,
+			badges: this.badges,
+		});
 	}
 
 	@ExtendToTemplate()
@@ -38,5 +54,11 @@ export class UserBadgeComponent
 		// DecoratedByExtendToTemplate
 	    super.ngOnChanges(_changes);
 	}
-	// TODO illustrate bridging @Output()s
+
+	public ngOnDestroy(): void {
+        // be sure and call super.ngOnDestroy() if you
+		// override ngOnDestroy when extending
+		// DecoratedByExtendToTemplate
+	    super.ngOnDestroy();
+	}
 }

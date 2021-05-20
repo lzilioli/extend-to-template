@@ -1,14 +1,16 @@
 
 import {
 	Component,
-
 	OnChanges
 } from '@angular/core';
 import { UserBadgeComponent } from '../user-badge/user-badge.component';
 
 @Component({
 	selector: 'user-badge-with-panel',
-	styleUrls: ['./user-badge-with-panel.component.scss'],
+	styleUrls: [
+		'../user-badge/user-badge.component.scss',
+		'./user-badge-with-panel.component.scss'
+	],
 	template: `
 	<div class="panel">
 		<user-badge
@@ -17,7 +19,5 @@ import { UserBadgeComponent } from '../user-badge/user-badge.component';
 	</div>`,
 })
 export class UserBadgeWithPanelComponent extends UserBadgeComponent implements OnChanges {
-	constructor() {
-		super();
-	}
+
 }
