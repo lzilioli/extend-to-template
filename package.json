@@ -8,7 +8,7 @@
     "update-gh-pages": "rm docs/* 2> /dev/null ; pushd example-angular-app && node_modules/.bin/ng build --base-href=/extend-to-template/ && popd && mv example-angular-app/dist/example-angular-app/* docs/"
   },
   "author": "Luke Zilioli",
-  "license": "ISC",
+  "license": "GNU GPLv3",
   "dependencies": {
     "@angular/core": "^12.0.1",
     "rxjs": "^7.0.1"

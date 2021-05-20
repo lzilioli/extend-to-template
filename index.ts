@@ -117,7 +117,7 @@ export class DecoratedByExtendToTemplate<T> implements OnChanges, OnDestroy {
 	 * bridge down to our extended template call. Caching this
 	 * in onChanges prevents change detection from running infinitely
 	 * due to the fact that we pass a programatically derived object as
-	 * input. This object is updated by calling updateExtendsTemplateBridge
+	 * input. This object is updated by calling updateExtendToTemplateBridge
 	 */
 	private __extendToTemplateBridge: Partial<T> = {};
 
@@ -133,7 +133,7 @@ export class DecoratedByExtendToTemplate<T> implements OnChanges, OnDestroy {
 	public ngOnChanges(_changes: SimpleChanges): void {
         // skip over _extendToTemplateBridge, which is handled by a setter
 		if (!_changes._extendToTemplateBridge) {
-			this.updateExtendsTemplateBridge();
+			this.updateExtendToTemplateBridge();
 		}
     }
 
@@ -141,7 +141,7 @@ export class DecoratedByExtendToTemplate<T> implements OnChanges, OnDestroy {
 		clearOutoutSubscriptions.bind(this)();
 	}
 
-	private updateExtendsTemplateBridge(): void {
+	private updateExtendToTemplateBridge(): void {
 		// tslint:disable-next-line: no-any
 		const templateBridge: Partial<any> = {};
 		// @ts-ignore
@@ -181,7 +181,7 @@ export class DecoratedByExtendToTemplate<T> implements OnChanges, OnDestroy {
 				this[key] = config[key];
 			}
 		})
-		this.updateExtendsTemplateBridge();
+		this.updateExtendToTemplateBridge();
 	}
 	public get _extendToTemplateBridge(): Partial<T> {
 		return this.__extendToTemplateBridge;
