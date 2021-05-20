@@ -14,6 +14,12 @@ import { UserBadgeComponent } from '../1. user-badge/user-badge.component';
 		'../1. user-badge/user-badge.component.scss',
 		'./user-badge-with-the-kid.component.scss'
 	],
+	/**
+	 * Note we do not need to tweak the template at all, so we
+	 * can just point directly to the user-badge.component template
+	 * In this case, we do not leverage the power of the ExtendToTemplate
+	 * decorator at all.
+	 */
 	templateUrl: '../1. user-badge/user-badge.component.html',
 })
 export class UserBadgeWithTheKidComponent extends UserBadgeComponent implements OnChanges {
