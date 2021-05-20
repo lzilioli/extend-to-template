@@ -169,6 +169,10 @@ export class DecoratedByExtendToTemplateComponent<T> implements OnChanges, OnDes
 		Object.keys(config).forEach((key: string): void => {
 			// @ts-ignore
 			if (typeof config[key]?.subscribe === 'function' && typeof config[key]?.next === 'function') {
+				// Handle @Output-like objects by subscribing to our inner event
+				// (which we trust our component code to invoke when appropriate)
+				// by subscribing to them and passing them directly to the emitter
+				// by the same name in our descendant.
 				// @ts-ignore
 				const sub = this[key].subscribe((...args: never[]): void => {
 					// @ts-ignore
@@ -190,7 +194,7 @@ export class DecoratedByExtendToTemplateComponent<T> implements OnChanges, OnDes
 
 function clearOutoutSubscriptions(): void {
 	// @ts-ignore
-	this._outputSubscriptions.forEach((sub: any) => {
+	this._outputSubscriptions.forEach((sub: any): void => {
 		sub.unsubscribe();
 	});
 	// @ts-ignore

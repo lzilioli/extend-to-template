@@ -208,11 +208,11 @@ export class BaseComponent extends DecoratedByExtendToTemplateComponent implemen
   @Input()
 	public set _extendToTemplateBridge(config: Partial<T>) {
 		Object.keys(config).forEach((key: string): void => {
-			// Handle @Output-like objects by subscribing to our inner event
-      // (which we trust our component code to invoke when appropriate)
-      // by subscribing to them and passing them directly to the emitter
-      // by the same name in our descendant.
       if (typeof config[key]?.subscribe === 'function' && typeof config[key]?.next === 'function') {
+        // Handle @Output-like objects by subscribing to our inner event
+        // (which we trust our component code to invoke when appropriate)
+        // by subscribing to them and passing them directly to the emitter
+        // by the same name in our descendant.
 				this[key].subscribe((...args: never[]): void => {
 					config[key].next(...args);
 				});
