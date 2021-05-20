@@ -1,0 +1,22 @@
+:host {
+    padding: 10px;
+    display: block;
+}
+
+.name {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.tags {
+    margin: 10px 0;
+}
+
+.tag {
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 0 10px;
+    & + & {
+        margin-left: 10px;
+    }
+}

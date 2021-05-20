@@ -16,7 +16,7 @@ import { UserBadgeComponent } from '../user-badge/user-badge.component';
 	],
 	templateUrl: '../user-badge/user-badge.component.html',
 })
-export class UserBadgeTheKidComponent extends UserBadgeComponent implements OnChanges {
+export class UserBadgeWithTheKidComponent extends UserBadgeComponent implements OnChanges {
 	/**
 	 * Overrides deriveUserName to prefix this.name with
 	 * "The Kid". The base implementation returns this.name
@@ -27,17 +27,3 @@ export class UserBadgeTheKidComponent extends UserBadgeComponent implements OnCh
 		return `The Kid ${this.name}`;
 	}
 }
-
-@Component({
-	selector: 'user-badge-with-the-kid-and-panel',
-	styleUrls: [
-		'../user-badge/user-badge.component.scss',
-		'./user-badge-with-the-kid.component.scss'
-	],
-	template: `
-		<user-badge-with-panel
-			[_extendToTemplateBridge]="_extendToTemplateBridge"
-		></user-badge-with-panel>
-	`,
-})
-export class UserBadgeTheKidAndPanelComponent extends UserBadgeTheKidComponent implements OnChanges {}

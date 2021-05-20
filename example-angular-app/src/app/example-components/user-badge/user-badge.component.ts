@@ -13,7 +13,7 @@ import { DecoratedByExtendToTemplate, ExtendToTemplate } from 'extend-to-templat
 interface User {
 	name: string;
 	description: string;
-	badges: string[];
+	tags: string[];
 }
 
 @Component({
@@ -30,7 +30,7 @@ export class UserBadgeComponent
     @ExtendToTemplate()
     @Input() public description: string = '';
     @ExtendToTemplate()
-    @Input() public badges: string[] = [];
+    @Input() public tags: string[] = [];
 
 	@ExtendToTemplate()
 	@Output() public buttonClicked: EventEmitter<User> = new EventEmitter<User>();
@@ -39,7 +39,7 @@ export class UserBadgeComponent
 		this.buttonClicked.next({
 			name: this.name,
 			description: this.description,
-			badges: this.badges,
+			tags: this.tags,
 		});
 	}
 

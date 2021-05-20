@@ -68,12 +68,27 @@ import { Component, Input, OnChanges, OnDestroy, SimpleChanges } from "@angular/
  * itself. This list of properties is then used to auto-generate an object
  * which we pass down to our child simple-table via the _simpleTableRenderBridge.
  *
+ * When one component that extends another needs to create its
+ * own, internal instance of that component by way of wrapping
+ * its template, the base component can extend DecoratedByExtendToTemplate
+ * and decorate properties that need to be synced between instances
+ * with ExtendToTemplate(). From there, the decorator/base class
+ * will  provide the _extendToTemplateBridge as a quick way to
+ * pass all component inputs outputs, and member functions down
+ * to your child instance.
+ * To use:
+ *    MyComponent extends DecoratedByExtendToTemplate { ... }
+ *    MyComponent2 extends MyComponent { ... }
+ * And then in your template for my-component-2:
+ *    <my-component
+ *      [_extendToTemplateBridge]="_extendToTemplateBridge"
+ *    >
+ *    </my-component>
+ * Now, anywhere in your app, you can use <my-component> OR <my-component-2>
+ * interchangeable using the same exact component Input() and Output() API.
+ *
  * Possible Future enhancements:
- * 	 - namespace support for bridging to multiple templates
- *   - native support for all Input() and Output() (eliminating the need for
- *     ExtendToTemplate decorator calls on anything thats not a function)
- *   - automatically extend all non ng* instance methods, eliminating the
- *     need for the decorator entirely
+ * 	 - namespace support for extending subsets of a component API to different
  */
 export function ExtendToTemplate(): (target: DecoratedByExtendToTemplate<any>, propertyKey: string) => any {
 	return (target: DecoratedByExtendToTemplate<any>, propertyKey: string): any => {
@@ -92,6 +107,7 @@ export class DecoratedByExtendToTemplate<T> implements OnChanges, OnDestroy {
 	 * Automatically managed by the ExtendToTemplate decorator. This array
 	 * lists the key associated with all properties on the Class instance
 	 * that we should bridge down to the template.
+	 * Intentionally left uninitialized.
 	 */
 	// @ts-ignore
 	private _extendToTemplateProps: string[];
@@ -101,15 +117,18 @@ export class DecoratedByExtendToTemplate<T> implements OnChanges, OnDestroy {
 	 * bridge down to our extended template call. Caching this
 	 * in onChanges prevents change detection from running infinitely
 	 * due to the fact that we pass a programatically derived object as
-	 * input
+	 * input. This object is updated by calling updateExtendsTemplateBridge
 	 */
 	private __extendToTemplateBridge: Partial<T> = {};
 
+	/**
+	 * When @Outputs are bridged to this instance of the component, we
+	 * set up our own subscription pipe so that the @Output works in the
+	 * outer component. We need to track these subcscriptions so that we
+	 * can clean them up when appropriate.
+	 * See `set _extendToTemplateBridge`.
+	 */
 	private _outputSubscriptions: any[] = [];
-
-	constructor() {
-		this.updateExtendsTemplateBridge = this.updateExtendsTemplateBridge.bind(this);
-	}
 
 	public ngOnChanges(_changes: SimpleChanges): void {
         // skip over _extendToTemplateBridge, which is handled by a setter
@@ -144,22 +163,6 @@ export class DecoratedByExtendToTemplate<T> implements OnChanges, OnDestroy {
 		this['__extendToTemplateBridge'] = templateBridge;
 	}
 
-	// When one component that extends another needs to create its
-	// own, internal instance of that component by way of wrapping
-	// its template, the base component can extend DecoratedByExtendToTemplate
-	// and decorate properties that need to be synced between instances
-	// with ExtendToTemplate(). From there, the decorator/base class
-	// will  provide the _extendToTemplateBridge as a quick way to
-	// pass all component inputs outputs, and member functions down
-	// to your child instance.
-	// To use:
-	//    MyComponent extends DecoratedByExtendToTemplate { ... }
-	//    MyComponent2 extends MyComponent { ... }
-	// And then in your template for my-component-2:
-	//    <my-component
-	//      [_extendToTemplateBridge]="_extendToTemplateBridge"
-	//    >
-	//    </my-component>
 	@Input()
 	public set _extendToTemplateBridge(config: Partial<T>) {
 		clearOutoutSubscriptions.bind(this)();
