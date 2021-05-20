@@ -2,7 +2,8 @@
 import {
 	Component,
 	Input,
-	OnChanges
+	OnChanges,
+	SimpleChanges
 } from '@angular/core';
 import { DecoratedByExtendToTemplate, ExtendToTemplate } from 'extend-to-template';
 
@@ -12,7 +13,8 @@ import { DecoratedByExtendToTemplate, ExtendToTemplate } from 'extend-to-templat
 	styleUrls: ['./user-badge.component.scss'],
 })
 export class UserBadgeComponent
-	extends DecoratedByExtendToTemplate<UserBadgeComponent> {
+	extends DecoratedByExtendToTemplate<UserBadgeComponent>
+	implements OnChanges {
 
     @ExtendToTemplate()
     @Input() public name: string = '';
@@ -30,9 +32,11 @@ export class UserBadgeComponent
 		return this.name;
 	}
 
-	// public ngOnChanges(_changes: SimpleChanges): void {
-    //     // be sure and call super.ngOnChanges() if you override it
-	//     super.ngOnChanges(_changes);
-	// }
+	public ngOnChanges(_changes: SimpleChanges): void {
+        // be sure and call super.ngOnChanges() if you
+		// override ngOnChanges when extending
+		// DecoratedByExtendToTemplate
+	    super.ngOnChanges(_changes);
+	}
 	// TODO illustrate bridging @Output()s
 }
