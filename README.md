@@ -11,7 +11,7 @@ There is an [open proposal](https://github.com/angular/angular/issues/13766) for
 
 # Problem Statement
 
-I strongly you read the entirety of [the ng-descendant proposal](https://github.com/angular/angular/issues/13766) because it contextualizes the problem well.
+I strongly recommend you read the entirety of [the ng-descendant proposal](https://github.com/angular/angular/issues/13766) because it contextualizes the problem well.
 
 Component composition (where you wrap one component template by making a completely new component) is not better than component inheritance for two reasons:
 
