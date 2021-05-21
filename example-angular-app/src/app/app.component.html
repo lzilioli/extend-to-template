@@ -7,7 +7,7 @@
   name="Developer 1"
   description="Description for Developer 1"
   [tags]="['coder', 'javascript']"
-  (buttonClicked)="logResults($event)"
+  (userDataEmit)="logResults($event)"
 ></user-badge>
 
 <a href="https://github.com/lzilioli/extend-to-template/tree/stable/example-angular-app/src/app/example-components/2.A.%20user-badge-with-panel">user-badge-with-panel</a>
@@ -16,7 +16,7 @@
   name="Developer 2"
   description="Description for Developer 2"
   [tags]="['coder', 'typescript']"
-  (buttonClicked)="logResults($event)"
+  (userDataEmit)="logResults($event)"
 ></user-badge-with-panel>
 
 <a href="https://github.com/lzilioli/extend-to-template/tree/stable/example-angular-app/src/app/example-components/2.B.%20user-badge-with-the-kid">user-badge-with-the-kid</a>
@@ -25,7 +25,7 @@
 name="Developer 3"
 description="Description for Developer 3"
 [tags]="['better than us all']"
-(buttonClicked)="logResults($event)"
+(userDataEmit)="logResults($event)"
 ></user-badge-with-the-kid>
 
 <a href="https://github.com/lzilioli/extend-to-template/tree/stable/example-angular-app/src/app/example-components/3.%20user-badge-with-the-kid-and-panel">user-badge-with-the-kid-and-panel</a>
@@ -34,7 +34,7 @@ description="Description for Developer 3"
   name="Developer 4"
   description="Description for Developer 4"
   [tags]="['the goat']"
-  (buttonClicked)="logResults($event)"
+  (userDataEmit)="logResults($event)"
 ></user-badge-with-the-kid-and-panel>
 
 <a href="https://github.com/lzilioli/extend-to-template/tree/stable/example-angular-app/src/app/example-components/3.%20user-badge-with-the-kid-and-panel-and-self-modification">user-badge-with-the-kid-and-panel-and-self-modification</a>
@@ -44,7 +44,7 @@ description="Description for Developer 3"
   [(name)]="twoWayBindedName"
   description="Description for Developer 4"
   [tags]="['the goat']"
-  (buttonClicked)="logResults($event)"
+  (userDataEmit)="logResults($event)"
 ></user-badge-with-the-kid-and-panel-and-self-modification>
 
 The name is bound external to the component: {{twoWayBindedName}}

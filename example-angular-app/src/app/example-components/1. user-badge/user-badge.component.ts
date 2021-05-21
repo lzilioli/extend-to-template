@@ -28,10 +28,8 @@ export class UserBadgeComponent
     @ExtendToTemplate()
     @Input() public name: string = '';
 
-	// Not invoked in UserBadgeComponent, but some components that want to use it, can
 	@ExtendToTemplate()
 	@Output() nameChange: EventEmitter<string> = new EventEmitter<string>();
-
 
     @ExtendToTemplate()
     @Input() public description: string = '';
@@ -39,14 +37,22 @@ export class UserBadgeComponent
     @Input() public tags: string[] = [];
 
 	@ExtendToTemplate()
-	@Output() public buttonClicked: EventEmitter<User> = new EventEmitter<User>();
+	@Output() public userDataEmit: EventEmitter<User> = new EventEmitter<User>();
 
-	public handleButtonClick(): void {
-		this.buttonClicked.next({
+	private nameChangeCount: number = 0;
+
+	public emitUserData(): void {
+		this.userDataEmit.next({
 			name: this.name,
 			description: this.description,
 			tags: this.tags,
 		});
+	}
+
+	@ExtendToTemplate()
+	public changeName(): void {
+		this.nameChangeCount = this.nameChangeCount + 1;
+		this.nameChange.next(`${this.name} ${this.nameChangeCount}`);
 	}
 
 	@ExtendToTemplate()

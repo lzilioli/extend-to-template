@@ -26,8 +26,6 @@ import { UserBadgeWithTheKidComponent } from '../2.B. user-badge-with-the-kid/us
 })
 export class UserBadgeTheKidAndPanelAndSelfModificationComponent extends UserBadgeWithTheKidComponent {
 	public changeName(): void {
-		this.name = "RANDOM " + Math.random();
-		this.nameChange.next(this.name);
-		this.updateExtendToTemplateBridge();
+		this.nameChange.next("RANDOM " + Math.random());
 	}
 }

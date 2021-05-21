@@ -79,16 +79,16 @@ Allow me to illustrate the design compromises. Consider the example above, this 
 @Component({
   selector: 'base',
   template: `
-    <button (click)="handleButtonClick()>{{buttonText}}</button>
+    <button (click)="emitUserData()>{{buttonText}}</button>
   `
 })
 export class BaseComponent {
   @Input() buttonText = 'Click Me';
-  @Output() buttonClicked = new EventEmitter();
+  @Output() userDataEmit = new EventEmitter();
   protected clickCount = 0;
-  handleButtonClick() {
+  emitUserData() {
     this.clickCount = this.clickCount + 1;
-    this.buttonClicked.next(this.clickCount);
+    this.userDataEmit.next(this.clickCount);
   }
 }
 
@@ -106,12 +106,12 @@ In both cases, when you render either component, with `<base></base>` or `<deriv
 ```typescript
 <base
   buttonText="Hello!"
-  (buttonClicked)="logButtonClick()"
+  (userDataEmit)="logButtonClick()"
 ></base>
 
 <derived
   buttonText="Hello!"
-  (buttonClicked)="logButtonClick()"
+  (userDataEmit)="logButtonClick()"
 ></derived>
 ```
 
@@ -125,17 +125,17 @@ We would need to add some code to `DerivedComponent` in order to fix this:
   template: `
 		<base
 		  buttonText="buttonText"
-		  (buttonClicked)="handleButtonClick()"
+		  (userDataEmit)="emitUserData()"
 		></base>
 	`
 })
 export class DerivedComponent {
   @Input() buttonText = 'Click Me';
-  @Output() buttonClicked = new EventEmitter();
+  @Output() userDataEmit = new EventEmitter();
   protected clickCount = 0;
-  handleButtonClick() {
+  emitUserData() {
     this.clickCount = this.clickCount + 1;
-    this.buttonClicked.next(this.clickCount);
+    this.userDataEmit.next(this.clickCount);
   }
 }
 ```
@@ -148,7 +148,7 @@ We could improve this situation by extending the `BaseComponent` class:
   template: `
 		<base
 		  buttonText="buttonText"
-		  (buttonClicked)="handleButtonClick()"
+		  (userDataEmit)="emitUserData()"
 		></base>
 	`
 })
@@ -194,13 +194,13 @@ and extend those properties into itself.
 @Component({
   selector: 'base',
   template: `
-    <button (click)="handleButtonClick()>{{buttonText}}</button>
+    <button (click)="emitUserData()>{{buttonText}}</button>
   `
 })
 export class BaseComponent extends DecoratedByExtendToTemplateComponent implements OnChanges {
   @Input() buttonText = 'Click Me';
 
-  @Output() buttonClicked = new EventEmitter();
+  @Output() userDataEmit = new EventEmitter();
   protected clickCount = 0;
 
   public _extendToTemplateBridge: Partial<BaseComponent> = {};
@@ -223,9 +223,9 @@ export class BaseComponent extends DecoratedByExtendToTemplateComponent implemen
 		this.updateExtendToTemplateBridge();
 	}
 
-  handleButtonClick() {
+  emitUserData() {
     this.clickCount = this.clickCount + 1;
-    this.buttonClicked.next(this.clickCount);
+    this.userDataEmit.next(this.clickCount);
     // We need to call this method whenever we modify a value
     // which we are passing down to our descendant. In this case,
     // this.clickCount was just incremented by 1.
@@ -244,8 +244,8 @@ export class BaseComponent extends DecoratedByExtendToTemplateComponent implemen
     this._extendToTemplateBridge = {
       clickCount: this.clickCount,
       buttonText: this.buttonText,
-      buttonClicked: this.buttonClicked,
-      handleButtonClick: this.handleButtonClick,
+      userDataEmit: this.userDataEmit,
+      emitUserData: this.emitUserData,
     };
   }
 }
@@ -288,7 +288,7 @@ Lets revisit the above example, this time with the `ExtendToTemplate` decorator:
 @Component({
   selector: 'base',
   template: `
-    <button (click)="handleButtonClick()>{{buttonText}}</button>
+    <button (click)="emitUserData()>{{buttonText}}</button>
   `
 })
 export class BaseComponent extends DecoratedByExtendToTemplateComponent implements OnChanges, OnDestroy {
@@ -296,15 +296,15 @@ export class BaseComponent extends DecoratedByExtendToTemplateComponent implemen
   @Input() buttonText = 'Click Me';
 
   @ExtendToTemplate()
-  @Output() buttonClicked = new EventEmitter();
+  @Output() userDataEmit = new EventEmitter();
 
   @ExtendToTemplate()
   protected clickCount = 0;
 
   @ExtendToTemplate()
-  handleButtonClick() {
+  emitUserData() {
     this.clickCount = this.clickCount + 1;
-    this.buttonClicked.next(this.clickCount);
+    this.userDataEmit.next(this.clickCount);
     this.updateExtendToTemplateBridge();
   }
 
