@@ -141,7 +141,7 @@ export class DecoratedByExtendToTemplateComponent<T> implements OnChanges, OnDes
 		clearOutoutSubscriptions.bind(this)();
 	}
 
-	private updateExtendToTemplateBridge(): void {
+	protected updateExtendToTemplateBridge(): void {
 		// tslint:disable-next-line: no-any
 		const templateBridge: Partial<any> = {};
 		// @ts-ignore
@@ -168,13 +168,13 @@ export class DecoratedByExtendToTemplateComponent<T> implements OnChanges, OnDes
 		clearOutoutSubscriptions.bind(this)();
 		Object.keys(config).forEach((key: string): void => {
 			// @ts-ignore
-			if (typeof config[key]?.subscribe === 'function' && typeof config[key]?.next === 'function') {
+			if (isSubscriptionLike(config[key])) {
 				// Handle @Output-like objects by subscribing to our inner event
 				// (which we trust our component code to invoke when appropriate)
 				// by subscribing to them and passing them directly to the emitter
 				// by the same name in our descendant.
 				// @ts-ignore
-				const sub = this[key].subscribe((...args: never[]): void => {
+				const sub: any = this[key].subscribe((...args: never[]): void => {
 					// @ts-ignore
 					config[key].next(...args);
 				});
@@ -190,6 +190,10 @@ export class DecoratedByExtendToTemplateComponent<T> implements OnChanges, OnDes
 	public get _extendToTemplateBridge(): Partial<T> {
 		return this.__extendToTemplateBridge;
 	}
+}
+
+function isSubscriptionLike(obj: any): boolean {
+	return typeof obj?.subscribe === 'function' && typeof obj?.next === 'function';
 }
 
 function clearOutoutSubscriptions(): void {

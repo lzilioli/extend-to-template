@@ -27,6 +27,12 @@ export class UserBadgeComponent
 
     @ExtendToTemplate()
     @Input() public name: string = '';
+
+	// Not invoked in UserBadgeComponent, but some components that want to use it, can
+	@ExtendToTemplate()
+	@Output() nameChange: EventEmitter<string> = new EventEmitter<string>();
+
+
     @ExtendToTemplate()
     @Input() public description: string = '';
     @ExtendToTemplate()

@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public logResults(...args: unknown[]): void {
-    console.log('one of the buttons was clicked', ...args);
-  }
+	public twoWayBindedName: string = 'The Developer!';
+	public logResults(...args: unknown[]): void {
+		console.log('one of the buttons was clicked', ...args);
+	}
 }

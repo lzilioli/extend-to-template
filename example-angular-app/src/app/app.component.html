@@ -1,4 +1,5 @@
-<h1>Open your developer and click buttons ;)</h1>
+<h2>Open your developer console and click buttons ;)</h2>
+<h3>cmd + shift + i</h3>
 
 <a href="https://github.com/lzilioli/extend-to-template/tree/stable/example-angular-app/src/app/example-components/1.%20user-badge">user-badge</a>
 <user-badge
@@ -35,3 +36,15 @@ description="Description for Developer 3"
   [tags]="['the goat']"
   (buttonClicked)="logResults($event)"
 ></user-badge-with-the-kid-and-panel>
+
+<a href="https://github.com/lzilioli/extend-to-template/tree/stable/example-angular-app/src/app/example-components/3.%20user-badge-with-the-kid-and-panel-and-self-modification">user-badge-with-the-kid-and-panel-and-self-modification</a>
+
+<user-badge-with-the-kid-and-panel-and-self-modification
+  class="badge"
+  [(name)]="twoWayBindedName"
+  description="Description for Developer 4"
+  [tags]="['the goat']"
+  (buttonClicked)="logResults($event)"
+></user-badge-with-the-kid-and-panel-and-self-modification>
+
+The name is bound external to the component: {{twoWayBindedName}}
