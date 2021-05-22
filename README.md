@@ -115,7 +115,7 @@ In both cases, when you render either component, with `<base></base>` or `<deriv
 ></derived>
 ```
 
-However, if the resulting page renders two buttons, the first button saying `Hello!`, and the second saying `Click Me!`. In addition, only the first button will omit its click count when it is clicked. The second button won't invoke `logButtonClick` in your component when the button is clicked.
+However, the resulting page renders two buttons, the first button saying `Hello!`, and the second saying `Click Me!`. In addition, only the first button will omit its click count when it is clicked. The second button won't invoke `logButtonClick` in your component when the button is clicked.
 
 We would need to add some code to `DerivedComponent` in order to fix this:
 
