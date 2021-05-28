@@ -52,7 +52,8 @@ export class UserBadgeComponent
 	@ExtendToTemplate()
 	public changeName(): void {
 		this.nameChangeCount = this.nameChangeCount + 1;
-		this.nameChange.next(`${this.name} ${this.nameChangeCount}`);
+		this.name = `${this.name} ${this.nameChangeCount}`;
+		this.nameChange.next(this.name);
 	}
 
 	@ExtendToTemplate()

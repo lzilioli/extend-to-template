@@ -1,10 +1,6 @@
 import {
-	Component,
-	OnChanges,
-	EventEmitter,
-	Output,
+	Component
 } from '@angular/core';
-import { ExtendToTemplate } from 'extend-to-template';
 import { UserBadgeWithTheKidComponent } from '../2.B. user-badge-with-the-kid/user-badge-with-the-kid.component';
 
 @Component({
@@ -26,6 +22,7 @@ import { UserBadgeWithTheKidComponent } from '../2.B. user-badge-with-the-kid/us
 })
 export class UserBadgeTheKidAndPanelAndSelfModificationComponent extends UserBadgeWithTheKidComponent {
 	public changeName(): void {
-		this.nameChange.next("RANDOM " + Math.random());
+		this.name = "RANDOM " + Math.random();
+		this.nameChange.next(this.name);
 	}
 }

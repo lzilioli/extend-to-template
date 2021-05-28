@@ -5,46 +5,56 @@
 <user-badge
   class="badge"
   name="Developer 1"
+  (nameChange)="logResults('new name:', $event)"
   description="Description for Developer 1"
   [tags]="['coder', 'javascript']"
-  (userDataEmit)="logResults($event)"
+  (userDataEmit)="logResults('user data:', $event)"
 ></user-badge>
 
 <a href="https://github.com/lzilioli/extend-to-template/tree/stable/example-angular-app/src/app/example-components/2.A.%20user-badge-with-panel">user-badge-with-panel</a>
 <user-badge-with-panel
   class="badge"
   name="Developer 2"
+  (nameChange)="logResults('new name:', $event)"
   description="Description for Developer 2"
   [tags]="['coder', 'typescript']"
-  (userDataEmit)="logResults($event)"
+  (userDataEmit)="logResults('user data:', $event)"
 ></user-badge-with-panel>
 
 <a href="https://github.com/lzilioli/extend-to-template/tree/stable/example-angular-app/src/app/example-components/2.B.%20user-badge-with-the-kid">user-badge-with-the-kid</a>
 <user-badge-with-the-kid
   class="badge"
 name="Developer 3"
+(nameChange)="logResults('new name:', $event)"
 description="Description for Developer 3"
 [tags]="['better than us all']"
-(userDataEmit)="logResults($event)"
+(userDataEmit)="logResults('user data:', $event)"
 ></user-badge-with-the-kid>
 
 <a href="https://github.com/lzilioli/extend-to-template/tree/stable/example-angular-app/src/app/example-components/3.%20user-badge-with-the-kid-and-panel">user-badge-with-the-kid-and-panel</a>
 <user-badge-with-the-kid-and-panel
   class="badge"
-  name="Developer 4"
+  [(name)]="twoWayBindedName"
+  (nameChange)="logResults('new name:', $event)"
   description="Description for Developer 4"
   [tags]="['the goat']"
-  (userDataEmit)="logResults($event)"
+  (userDataEmit)="logResults('user data:', $event)"
 ></user-badge-with-the-kid-and-panel>
+The name is bound external to the component: {{twoWayBindedName}}
+
+<br>
+<br>
+<br>
+<br>
 
 <a href="https://github.com/lzilioli/extend-to-template/tree/stable/example-angular-app/src/app/example-components/3.%20user-badge-with-the-kid-and-panel-and-self-modification">user-badge-with-the-kid-and-panel-and-self-modification</a>
-
 <user-badge-with-the-kid-and-panel-and-self-modification
   class="badge"
   [(name)]="twoWayBindedName"
+  (nameChange)="logResults('new name:', $event)"
   description="Description for Developer 4"
   [tags]="['the goat']"
-  (userDataEmit)="logResults($event)"
+  (userDataEmit)="logResults('user data:', $event)"
 ></user-badge-with-the-kid-and-panel-and-self-modification>
 
 The name is bound external to the component: {{twoWayBindedName}}

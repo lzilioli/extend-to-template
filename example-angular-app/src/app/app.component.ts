@@ -8,6 +8,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
 	public twoWayBindedName: string = 'The Developer!';
 	public logResults(...args: unknown[]): void {
-		console.log('one of the buttons was clicked', ...args);
+		console.log(...args);
 	}
 }
