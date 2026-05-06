@@ -43,3 +43,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+.claude/*local*
+.claude/*.lock
+.claude/worktrees
